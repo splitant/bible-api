@@ -12,6 +12,7 @@ class BibleAPI:
         self._currentVersion = ''
         self._currentBook = ''
         self._currentChapter = ''
+        self._currentVerse = ''
         self._verses = dict()
 
     @property
@@ -45,6 +46,14 @@ class BibleAPI:
     @currentChapter.setter
     def currentChapter(self, currentChapter):
         self._currentChapter = currentChapter
+    
+    @property
+    def currentVerse(self):
+        return self._currentVerse
+
+    @currentVerse.setter
+    def currentVerse(self, currentVerse):
+        self._currentVerse = currentVerse
 
     @property
     def bibleVersions(self):
@@ -114,9 +123,11 @@ class BibleAPI:
                         new_verse_number = 1
                         
                     self._currentChapter = str(new_chapter)
+                    self._currentVerse = str(new_verse_number)
                     verse = verses[self._currentChapter][str(new_verse_number)]
             else:
                 verse = verses[self._currentChapter][num_verse]
+                self._currentVerse = num_verse
         
         return verse
 
