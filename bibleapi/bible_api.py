@@ -5,14 +5,14 @@ import json
 class BibleAPI:
     SOURCE_DIRECTORY = 'bible'
 
-    def __init__(self):
+    def __init__(self, currentVersion='', currentBook='', currentChapter='', currentVerse=''):
         self._bibleVersions = dict()
         self._bibleBooks = dict()
 
-        self._currentVersion = ''
-        self._currentBook = ''
-        self._currentChapter = ''
-        self._currentVerse = ''
+        self._currentVersion = currentVersion
+        self._currentBook = currentBook
+        self._currentChapter = currentChapter
+        self._currentVerse = currentVerse
         self._verses = dict()
 
     @property
@@ -85,8 +85,11 @@ class BibleAPI:
 
         with open(file_path, 'r', encoding='utf8') as json_file:
             data = json_file.read()
-            self._bibleBooks = json.loads(data)
+            data_books = json.loads(data)
         
+        for value in data_books.values():
+            self._bibleBooks[value['code_book']] = value['label_book']
+
         return self._bibleBooks
 
     def getVersesFromBook(self, version, book):
