@@ -77,7 +77,7 @@ class BibleAPI:
         with open(file_path, 'r', encoding='utf8') as json_file:
             data = json_file.read()
             self._bibleVersions = json.loads(data)
-        
+                
         return self._bibleVersions
 
     def getBibleBooks(self):
